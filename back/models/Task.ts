@@ -25,3 +25,8 @@ const TaskSchema = new Schema({
     enum:["new", "in_progress", "complete"]
   }
 })
+
+
+const Task = mongoose.model('Task', TaskSchema);
+
+export default Task;
