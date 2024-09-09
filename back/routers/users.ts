@@ -15,6 +15,7 @@ usersRouter.post("/", async(req, res, next)=>{
 
     await user.save();
     return res.send(`successfully created new user ${user.username}`);
+
   }catch(error){
     if(error instanceof mongoose.Error.ValidationError){
       return res.status(400).send(error);
@@ -36,8 +37,8 @@ usersRouter.post('/sessions', async(req, res, next)=>{
 
     user.generateToken();
     await user.save();
-    return res.send(user)
 
+    return res.send(user)
   }catch(error){
     if(error instanceof mongoose.Error.ValidationError){
       return res.status(400).send(error);
@@ -46,17 +47,11 @@ usersRouter.post('/sessions', async(req, res, next)=>{
   }
 })
 
-// /users/secret
-usersRouter.post('/secret', auth, async (req: RequestWithUser, res, next) => {
-  try {
-    if (!req.user) {
-      return res.status(401).send({error: 'User not found'});
-    }
-    return res.send('Secret text, username=' + req.user?.username);
-  } catch (error) {
-    return next(error);
-  }
-});
 
+// usersRouter.post('/secret',auth, async (req:RequestWithUser, res, next) => {
+//
+//
+//   return res.send(`Secret text username ${req.user?.username} `);
+// });
 
 export default usersRouter
